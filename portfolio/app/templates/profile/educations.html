@@ -1,0 +1,199 @@
+{% set active_page = 'my_profile' %}
+
+{% extends "./layout.html" %}
+
+{% block title %}
+Educations
+{% endblock %}
+{% include 'flash_message.html' %}
+{% block main %}
+
+
+
+    <div class="page-title" data-aos="fade">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1>Educations</h1>
+              <p class="mb-0">You can View , Edit , Delete and Add New Educations..</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <section id="education" class="contact section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        
+        {% if records %}
+        <div class="row gy-4">
+          
+          <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+                <tr>
+                    <th>Title</th>
+                    <th>Institute Name</th>
+                    <th>Date From</th>
+                    <th>Date To</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for education in records %}
+                <tr>
+                    <td>{{ education.title }}</td>
+                    <td>{{ education.institute_name }}</td>
+                    <td>{{ education.date_from }}</td>
+                    <td>{{ education.date_to }}</td>
+                    
+                    <td><button type="button" class="btn btn-success btn-rounded btn-lg fw-bold btn-sm fw-bold" data-bs-toggle="modal"
+                            data-bs-target="#edit_education_{{ education.id }}">Update</button> 
+                    <button type="button" class="btn btn-danger btn-rounded btn-sm fw-bold" data-bs-toggle="modal"
+                            data-bs-target="#delete_education_{{ education.id }}">Delete</button></td>
+                </tr>
+
+
+                <!-- EDIT Modal-->
+                <div class="modal fade" id="edit_education_{{ education.id }}" tabindex="-1" aria-labelledby="Edit Education" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <b class="modal-title fs-5" id="exampleModalLabel">Edit Education</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form action="/edit/educations/{{education.id}}" method="POST">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                              <label for="title" class="col-form-label">Title</label>
+                              <input type="text" id="title" class="form-control" name="title" value="{{ education.title }}" required/>
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="institute_name" class="col-form-label">Institute Name</label>
+                              <input type="text" id="institute_name" class="form-control" name="institute_name" value="{{ education.institute_name }}" required/>
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="date_from" class="col-form-label">Date From</label>
+                              <input type="date" id="date_from" class="form-control" name="date_from" value="{{ education.date_from }}" required/>
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="date_to" class="col-form-label">Date To</label>
+                              <input type="date" id="date_to" class="form-control" name="date_to" value="{{ education.date_to }}" />
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="description" class="col-form-label">Description</label>
+                              <input type="textarea" id="description" class="form-control" name="description" value="{{ education.description }}" />
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                <!-- END EDIT Modal -->
+
+
+
+                <!-- Delete Modal -->
+                    <div class="modal fade" id="delete_education_{{education.id}}" tabindex="-1" aria-labelledby="basicModal" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <b class="modal-title fs-5" id="exampleModalLabel">Delete Education</b>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="/delete/educations/{{education.id}}" method="GET">
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                  <label class="col-sm-12 col-form-label">Do you want to delete  <span
+                                          style='font-weight:bold;color:red'>{{education.title}}</span>
+                                      ?</label>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-success">Confirm</button>
+                            </div>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- End Delete Modal-->
+
+                {% endfor %}
+            </tbody>
+          </table>
+
+
+
+        </div>
+        {% endif %}
+        <br />
+        <button type="button" class="btn btn-success btn-rounded btn-lg fw-bold" data-bs-toggle="modal" data-bs-target="#insert_education">Add New Education</button>
+
+
+      </div>
+
+
+      
+      <!-- Modal 1 for adding a  -->
+      <div class="modal fade" id="insert_education" tabindex="-1" aria-labelledby="Add Education" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <b class="modal-title fs-5" id="exampleModalLabel">New Education</b>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/create/educations" method="POST">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="title" class="col-form-label">Title</label>
+                  <input type="text" id="title" class="form-control" name="title" required/>
+                </div>
+
+                <div class="mb-3">
+                  <label for="institute_name" class="col-form-label">Institute Name</label>
+                  <input type="text" id="institute_name" class="form-control" name="institute_name" required/>
+                </div>
+
+                <div class="mb-3">
+                  <label for="date_from" class="col-form-label">Date From</label>
+                  <input type="date" id="date_from" class="form-control" name="date_from" required/>
+                </div>
+
+                <div class="mb-3">
+                  <label for="date_to" class="col-form-label">Date To</label>
+                  <input type="date" id="date_to" class="form-control" name="date_to" />
+                </div>
+
+                <div class="mb-3">
+                  <label for="description" class="col-form-label">Description</label>
+                  <input type="textarea" id="description" class="form-control" name="description" />
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal 1 -->
+
+      
+
+    </section><!-- /Contact Section -->
+
+{% endblock %}

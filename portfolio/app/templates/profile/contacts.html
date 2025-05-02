@@ -1,0 +1,152 @@
+{% set active_page = 'my_profile' %}
+
+{% extends "./layout.html" %}
+
+{% block title %}
+Contacts
+{% endblock %}
+{% include 'flash_message.html' %}
+{% block main %}
+
+
+
+    <div class="page-title" data-aos="fade">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1>Contacts</h1>
+              <p class="mb-0">You can View Contact Messages and Edit Your Social Profile Links..</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <section id="contacts" class="contact section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        
+      {% if user.contacts %}
+        <div class="row gy-4">
+          
+          <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in user.contacts %}
+                <tr>
+                    <td>{{ message.name }}</td>
+                    <td>{{ message.email }}</td>
+                    <td>{{ message.subject }}</td>                    
+                    <td><button type="button" class="btn btn-success btn-rounded btn-lg fw-bold btn-sm fw-bold" data-bs-toggle="modal"
+                            data-bs-target="#view_message_{{ message.id }}">View</button> 
+                </tr>
+
+
+                <!-- EDIT Modal-->
+                <div class="modal fade" id="view_message_{{ message.id }}" tabindex="-1" aria-labelledby="View Message" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <b class="modal-title fs-5" id="exampleModalLabel">View Message</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                              <label for="title" class="col-form-label"><b>Name : </b></label>
+                              <label for="title" class="col-form-label">{{ message.name }}</label>
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="title" class="col-form-label"><b>Email : </b></label>
+                              <label for="title" class="col-form-label">{{ message.email }}</label>
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="title" class="col-form-label"><b>Subject : </b></label>
+                              <label for="title" class="col-form-label">{{ message.subject }}</label>
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="title" class="col-form-label"><b>Message : </b></label>
+                              <label for="title" class="col-form-label">{{ message.message }}</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- END EDIT Modal -->
+                {% endfor %}
+            </tbody>
+          </table>
+
+
+
+        </div>
+      {% endif %}
+      <br />
+      <button type="button" class="btn btn-success btn-rounded btn-lg fw-bold" data-bs-toggle="modal" data-bs-target="#edit_social_links">Edit Social Profile Links</button>
+
+
+      </div>
+
+
+      
+      <!-- Modal 1 for adding a  -->
+      <div class="modal fade" id="edit_social_links" tabindex="-1" aria-labelledby="Edit Social Profile Links" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <b class="modal-title fs-5" id="exampleModalLabel">Edit Social Profile Links</b>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/social_profile" method="POST">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="twitter" class="col-form-label">Twitter/X</label>
+                  <input type="text" id="twitter" class="form-control" name="twitter" value="{{ user.twitter }}"/>
+                </div>
+
+                <div class="mb-3">
+                  <label for="facebook" class="col-form-label">Facebook</label>
+                  <input type="text" id="facebook" class="form-control" name="facebook" value="{{ user.facebook }}"/>
+                </div>
+
+                <div class="mb-3">
+                  <label for="instagram" class="col-form-label">Instagram</label>
+                  <input type="text" id="instagram" class="form-control" name="instagram" value="{{ user.instagram }}"/>
+                </div>
+
+                <div class="mb-3">
+                  <label for="linkedin" class="col-form-label">Linkedin</label>
+                  <input type="text" id="linkedin" class="form-control" name="linkedin" value="{{ user.linkedin }}"/>
+                </div>
+
+
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal 1 -->
+
+      
+
+    </section><!-- /Contact Section -->
+
+{% endblock %}

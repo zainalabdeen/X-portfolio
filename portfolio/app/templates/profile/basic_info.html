@@ -1,0 +1,145 @@
+{% set active_page = 'my_profile' %}
+
+{% extends "./layout.html" %}
+
+{% block title %}
+Basic Info
+{% endblock %}
+
+{% block main %}
+  <div class="mid_content">
+
+    <!-- Page Title -->
+    <div class="page-title" data-aos="fade">
+        <div class="heading">
+            <div class="container">
+            <div class="row d-flex justify-content-center text-center">
+                <div class="col-lg-8">
+                <h1>Basic Information</h1>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div><!-- End Page Title -->
+
+    {% if form_errors %}
+
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8 alert alert-danger">
+            <ul>
+              {% for key,value in form_errors.items() %} 
+                  <li><b>{{ key|escape }} </b>: {{ value|escape }}</li>
+              {% endfor %}
+              </ul>
+            </div>
+        </div>
+      </div>
+    {% endif %}
+
+
+
+    {% if info %}
+    <form action="/basic_info" method="post">
+        <div class="container">
+            <div class="row d-flex justify-content-center text-center">
+                <div class="col-lg-8">
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" id="form_fullname" class="form-control" name="fullname" required value="{{ info.fullname }}"/>
+                        <label class="form-label" for="form_fullname">Full Name</label>
+                    </div>
+                  
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div data-mdb-input-init class="form-outline">
+                            <input type="text" id="form_phone" class="form-control" name="phone" required value="{{ info.phone }}"/>
+                            <label class="form-label" for="form_phone">Phone</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div data-mdb-input-init class="form-outline">
+                            <input type="date" id="form_birthday" class="form-control" name="birthday" required value="{{ info.birthday }}"/>
+                            <label class="form-label" for="form_birthday">Birthday</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" id="form_address" class="form-control" name="address" required value="{{ info.address }}"/>
+                        <label class="form-label" for="form_address">Address</label>
+                    </div>
+
+                    <div class="input-group mb-4">
+                        <div class="input-group-text">
+                          <label>Sex</label>
+                        </div>
+                        <div class="input-group-text form-control">
+                          <input class="form-check-input" type="radio" name="sex" id="sex_male" value="Male" {% if info.sex == "Male" %} checked {% endif %} required/>
+                          <label class="form-check-label" for="sex_male">Male</label>
+                        </div>
+              
+                        <div class="input-group-text form-control">
+                          <input class="form-check-input" type="radio" name="sex" id="sex_female" value="Female" {% if info.sex == "Female" %} checked {% endif %} required/>
+                          <label class="form-check-label" for="sex_female">Female</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-4">
+                        <div class="input-group-text">
+                          <label>Degree</label>
+                        </div>
+                        <div class="input-group-text form-control">
+                          <input class="form-check-input" type="radio" name="degree" id="degree_level_1" value="Bachelor's" {% if info.degree == "Bachelor's" %} checked {% endif %} required/>
+                          <label class="form-check-label" for="degree_level_1">Bachelor's</label>
+                        </div>
+              
+                        <div class="input-group-text form-control">
+                          <input class="form-check-input" type="radio" name="degree" id="degree_level_2" value="Master's" {% if info.degree == "Master's" %} checked {% endif %} required/>
+                          <label class="form-check-label" for="degree_level_2">Master's</label>
+                        </div>
+              
+                        <div class="input-group-text form-control">
+                          <input class="form-check-input" type="radio" name="degree" id="degree_level_2" value="Doctoral" {% if info.degree == "Doctoral" %} checked {% endif %} required/>
+                          <label class="form-check-label" for="degree_level_2">Doctoral</label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div data-mdb-input-init class="form-outline">
+                            <input type="integer" id="form_years_of_experience" class="form-control" name="years_of_experience" required value="{{ info.years_of_experience }}"/>
+                            <label class="form-label" for="form_years_of_experience">Years Of Experience</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div data-mdb-input-init class="form-outline">
+                            <input type="integer" id="form_happy_clients" class="form-control" name="happy_clients" required value="{{ info.happy_clients }}"/>
+                            <label class="form-label" for="form_happy_clients">Happy Clients</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div data-mdb-input-init class="form-outline">
+                            <input type="integer" id="form_projects" class="form-control" name="projects" required value="{{ info.projects }}"/>
+                            <label class="form-label" for="form_projects">Projects</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="textarea" id="form_description" class="form-control" name="description" required value="{{ info.description }}"/>
+                        <label class="form-label" for="form_description">Summary About You</label>
+                    </div>
+
+
+
+                    <!-- Submit button -->
+                    <button data-mdb-ripple-init type="submit" class="btn btn-success btn-rounded btn-lg fw-bold btn-block mb-4">Update</button>
+        
+    </div>
+    </div>
+    </div>
+    </form>
+    {% endif %}
+  </div>
+{% endblock %}

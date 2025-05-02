@@ -1,0 +1,45 @@
+{% set active_page = 'index' %}
+{% extends "layout.html" %}
+
+{% block title %}
+Index
+{% endblock %}
+{% include 'flash_message.html' %}
+{% block main %}
+
+
+
+
+    <!-- Page Title -->
+    <div class="page-title" data-aos="fade">
+      <div class="heading hero">
+
+      
+
+        <div class="container d-flex flex-column align-items-center justify-content-center text-center" data-aos="zoom-out" data-aos-delay="100">
+          <h2>Build Your Portfolio With Us</h2>
+          <p>We Help You Add Your <span class="typed"
+            data-typed-items="Basic Info, Skills, Qualifications, Experiences, Interests"></span><span
+            class="typed-cursor typed-cursor--blink"></span>
+
+            <a href="/register"><button type="button" class="btn btn-success btn-rounded btn-lg fw-bold">
+              Get Started <i class="bi bi-arrow-right"></i>
+            </button></a>
+          </p>
+          
+          <h2>OR</h2>
+
+          <form id="search_form" action="view" method="GET">
+            <div class="searchbar">
+                <input class="search_input" type="text" name="email" placeholder="Search Portfolios..." required>
+                <a href="#" class="search_icon"><i class="fas fa-search"></i></a>              
+            </div>
+          </form>
+        </div>
+
+
+        
+      </div>
+      
+    </div><!-- End Page Title -->
+{% endblock %}

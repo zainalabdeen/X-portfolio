@@ -1,0 +1,54 @@
+{% with fash_message = get_flashed_messages() %}
+    {% if fash_message %}
+        <div aria-live="polite" aria-atomic="true" class="position-relative">
+        <!-- Position it: -->
+        <!-- - `.toast-container` for spacing between toasts -->
+        <!-- - `top-0` & `end-0` to position the toasts in the upper right corner -->
+        <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
+        <div class="toast-container top-0 end-0 p-3">
+    
+            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                {% if errors %}
+                    <!-- Then put toasts within -->
+                    <div class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header text-bg-danger" style="border-color:#fff !important">
+                        <span><i class="bi bi-x-octagon rounded me-2"></i></span>
+                        <strong class="me-auto">ERROR</strong>
+                        <!--small class="text-body-secondary">just now</small-->
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            <ul>
+                                {% for msg in errors %}
+                                    <li><b>{{ msg|escape }}</b></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endwith %}
+    
+            {% with success = get_flashed_messages(category_filter=["success"]) %}
+                {% if success %}
+                    <!-- Then put toasts within -->
+                    <div class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header text-bg-success">
+                        <span><i class="bi bi-check-circle rounded me-2"></i></span>
+                        <strong class="me-auto">SUCCESS</strong>
+                        <!--small class="text-body-secondary">just now</small-->
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            <ul>
+                                {% for msg in success %}
+                                    <li><b>{{ msg|escape }}</b></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+  {% endif %}
+{% endwith %}

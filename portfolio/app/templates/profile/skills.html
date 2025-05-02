@@ -1,0 +1,164 @@
+{% set active_page = 'my_profile' %}
+
+{% extends "./layout.html" %}
+
+{% block title %}
+Skills
+{% endblock %}
+{% include 'flash_message.html' %}
+{% block main %}
+
+
+
+    <div class="page-title" data-aos="fade">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1>Skills</h1>
+              <p class="mb-0">You can View , Edit , Delete and Add New Skills..</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <section id="skill" class="contact section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        
+        {% if records %}
+        <div class="row gy-4">
+          
+          <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Percentage</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for skill in records %}
+                <tr>
+                    <td>{{ skill.name }}</td>
+                    <td>{{ skill.percent }}</td>
+                    
+                    <td><button type="button" class="btn btn-success btn-rounded btn-lg fw-bold btn-sm fw-bold" data-bs-toggle="modal"
+                            data-bs-target="#edit_skill_{{ skill.id }}">Update</button> 
+                    <button type="button" class="btn btn-danger btn-rounded btn-sm fw-bold" data-bs-toggle="modal"
+                            data-bs-target="#delete_skill_{{ skill.id }}">Delete</button></td>
+                </tr>
+
+
+                <!-- EDIT Modal-->
+                <div class="modal fade" id="edit_skill_{{ skill.id }}" tabindex="-1" aria-labelledby="Edit Skill" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <b class="modal-title fs-5" id="exampleModalLabel">Edit Skill</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form action="/edit/skills/{{skill.id}}" method="POST">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                              <label for="name" class="col-form-label">Name</label>
+                              <input type="text" id="name" class="form-control" name="name" value="{{ skill.name }}" required/>
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="percent" class="col-form-label">Percentage%</label>
+                              <input type="integer" min="1" max="100" id="percent" class="form-control" name="percent" value="{{ skill.percent }}" required/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                <!-- END EDIT Modal -->
+
+
+
+                <!-- Delete Modal -->
+                    <div class="modal fade" id="delete_skill_{{skill.id}}" tabindex="-1" aria-labelledby="basicModal" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <b class="modal-title fs-5" id="exampleModalLabel">Delete Skill</b>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="/delete/skills/{{skill.id}}" method="GET">
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                  <label class="col-sm-12 col-form-label">Do you want to delete  <span
+                                          style='font-weight:bold;color:red'>{{skill.name}}</span>
+                                      ?</label>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-success">Confirm</button>
+                            </div>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- End Delete Modal-->
+
+                {% endfor %}
+            </tbody>
+          </table>
+
+
+
+        </div>
+        {% endif %}
+        <br />
+        <button type="button" class="btn btn-success btn-rounded btn-lg fw-bold" data-bs-toggle="modal" data-bs-target="#insert_skill">Add New Skill</button>
+
+
+      </div>
+
+
+      
+      <!-- Modal 1 for adding a skill -->
+      <div class="modal fade" id="insert_skill" tabindex="-1" aria-labelledby="Add Skill" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <b class="modal-title fs-5" id="exampleModalLabel">New Skill</b>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/create/skills" method="POST">
+              <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="name" class="col-form-label">Name</label>
+                    <input type="text" id="name" class="form-control" name="name" required/>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="percent" class="col-form-label">Percentage%</label>
+                    <input type="integer" min="1" max="100" id="percent" class="form-control" name="percent" required/>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal 1 -->
+
+      
+
+    </section><!-- /Contact Section -->
+
+{% endblock %}

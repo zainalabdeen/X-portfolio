@@ -1,0 +1,30 @@
+<footer id="footer" class="footer dark-background">
+    <div class="container">
+      <h3 class="sitename">X-Portfolio</h3>
+      <p>
+        “Bad programmers worry about the code. Good programmers worry about data structures and their relationships.”
+        ― Linus Torvalds </p>
+      <div class="social-links d-flex justify-content-center">
+        {% if user %}
+          <a href="https://{{ user.twitter.replace('https://','') }}"><i class="bi bi-twitter-x"></i></a>
+          <a href="https://{{ user.facebook.replace('https://','') }}"><i class="bi bi-facebook"></i></a>
+          <a href="https://{{ user.instagram.replace('https://','') }}"><i class="bi bi-instagram"></i></a>
+          <a href="https://{{ user.linkedin.replace('https://','') }}"><i class="bi bi-linkedin"></i></a>
+        {% else %}
+          <a href=""><i class="bi bi-twitter-x"></i></a>
+          <a href=""><i class="bi bi-facebook"></i></a>
+          <a href=""><i class="bi bi-instagram"></i></a>
+          <a href=""><i class="bi bi-linkedin"></i></a>
+        {% endif %}
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <span>Copyright</span> <strong class="px-1 sitename">X-Portfolio</strong> <span>All Rights Reserved</span>
+        </div>
+
+        <div class="credits">
+          Designed by <a href="https://www.linkedin.com/in/zainalabdeen-merghani-56b7ab106">Zain-Alabdeen</a>
+        </div>
+      </div>
+    </div>
+</footer>

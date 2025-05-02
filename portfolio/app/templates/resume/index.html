@@ -1,0 +1,40 @@
+{% set active_page = 'home' %}
+{% extends "./layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+{% include 'flash_message.html' %}
+{% block main %}
+
+          
+    <!-- Hero Section -->
+    <section id="portfolio-page" class="hero section dark-background portfolio-section">
+      <div class="container d-flex flex-column align-items-center justify-content-center text-center" data-aos="zoom-out" data-aos-delay="100">
+        <h2>{{ user.fullname }}</h2>
+        {% if user.titles %}
+          <p>I'm <span class="typed" data-typed-items="{{ titles }}"></span>
+          <span class="typed-cursor typed-cursor--blink"></span></p>
+        {% elif session["user_id"] %}
+          <a href="/get/profile/titles">
+            <button type="button" class="btn btn-success btn-rounded btn-lg fw-bold">
+              Add Titles <i class="bi bi-arrow-right"></i>
+            </button>
+          </a>
+        {% endif %}
+
+      </div>
+
+    </section><!-- /Hero Section -->
+
+
+{% include 'resume/interest.html' %}
+
+
+{% include 'resume/about.html' %}
+
+{% include 'resume/resume.html' %}
+
+{% include 'resume/contact.html' %}
+
+{% endblock %}

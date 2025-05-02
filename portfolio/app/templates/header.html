@@ -1,0 +1,40 @@
+<header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="/" class="logo d-flex align-items-center">
+        <h1 class="sitename">X-Portfolio</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+        {% if user or session["user_id"]%}
+          <li><a href="/" class="portfolio-page {{'active' if active_page == 'home' }}">Home</a></li>
+            {% if active_page == 'home' %}
+              <li><a href="#about" class="about">About</a></li>
+              <li><a href="#resume" class="resume">Resume</a></li>
+              <li><a href="#contact" class="contact">Contact</a></li>
+            {% endif%}
+            {% if session["user_id"] %}
+              <li class="dropdown"><a href="#" class="{{'active' if active_page == 'my_profile' }}"><span>My Profile</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a href="/get/profile/titles">Titles</a></li>
+                  <li><a href="/basic_info">Basic Info</a></li>
+                  <li><a href="/get/profile/skills">Skills</a></li>
+                  <li><a href="/get/profile/educations">Educations</a></li>
+                  <li><a href="/get/profile/experiences">Experiences</a></li>
+                  <li><a href="/get/profile/interests">Interests</a></li>
+                  <li><a href="/social_profile">Contacts</a></li>
+                  <li><a href="/change_password">Change Password</a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            {% endif%}
+        {% else %}
+          <li class="nav-item"><a class="nav-link {{'active' if active_page == 'register' }}" href="/register">Register</a></li>
+          <li class="nav-item"><a class="nav-link {{'active' if active_page == 'login' }}" href="/login">Log In</a></li>
+        {% endif %}
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+</header>
